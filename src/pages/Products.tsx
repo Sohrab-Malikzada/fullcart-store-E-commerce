@@ -37,7 +37,7 @@ const Products = () => {
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
-        <h1 className="font-serif text-3xl font-bold mb-8">All Products</h1>
+        <h1 className="font-serif text-3xl font-bold mb-8">همه محصولات</h1>
         <ProductFilters
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}

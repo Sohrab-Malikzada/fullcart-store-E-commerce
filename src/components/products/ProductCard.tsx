@@ -10,6 +10,13 @@ interface ProductCardProps {
   product: Product;
 }
 
+const categoryNames: Record<string, string> = {
+  electronics: "الکترونیک",
+  clothing: "پوشاک",
+  "home-living": "خانه و زندگی",
+  accessories: "لوازم جانبی",
+};
+
 const ProductCard = ({ product }: ProductCardProps) => {
   const { addItem, isInCart } = useCart();
   const hasDiscount = product.originalPrice && product.originalPrice > product.price;
@@ -36,8 +43,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             loading="lazy"
           />
           
-          {/* Badges */}
-          <div className="absolute top-3 left-3 flex flex-col gap-2">
+          <div className="absolute top-3 right-3 flex flex-col gap-2">
             {hasDiscount && (
               <Badge variant="destructive" className="font-medium">
                 -{discountPercent}%
@@ -45,27 +51,22 @@ const ProductCard = ({ product }: ProductCardProps) => {
             )}
             {!product.inStock && (
               <Badge variant="secondary" className="bg-foreground/80 text-background">
-                Out of Stock
+                ناموجود
               </Badge>
             )}
           </div>
 
-          {/* Quick Actions */}
-          <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <Button
               size="icon"
               variant="secondary"
               className="h-9 w-9 rounded-full shadow-md"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-              }}
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
             >
               <Heart className="h-4 w-4" />
             </Button>
           </div>
 
-          {/* Add to Cart Button */}
           <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
             <Button
               className="w-full gap-2 shadow-lg"
@@ -73,40 +74,27 @@ const ProductCard = ({ product }: ProductCardProps) => {
               onClick={handleAddToCart}
             >
               <ShoppingBag className="h-4 w-4" />
-              {isInCart(product.id) ? "In Cart" : "Add to Cart"}
+              {isInCart(product.id) ? "در سبد خرید" : "افزودن به سبد"}
             </Button>
           </div>
         </div>
 
         <CardContent className="p-4">
-          {/* Category */}
           <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">
-            {product.category.replace("-", " ")}
+            {categoryNames[product.category] || product.category}
           </p>
-
-          {/* Name */}
           <h3 className="font-medium text-foreground line-clamp-2 mb-2 group-hover:text-primary transition-colors font-sans">
             {product.name}
           </h3>
-
-          {/* Rating */}
           <div className="flex items-center gap-1 mb-2">
             <Star className="h-3.5 w-3.5 fill-primary text-primary" />
             <span className="text-sm font-medium">{product.rating}</span>
-            <span className="text-xs text-muted-foreground">
-              ({product.reviewCount})
-            </span>
+            <span className="text-xs text-muted-foreground">({product.reviewCount})</span>
           </div>
-
-          {/* Price */}
           <div className="flex items-center gap-2">
-            <span className="text-lg font-semibold text-foreground">
-              ${product.price.toFixed(2)}
-            </span>
+            <span className="text-lg font-semibold text-foreground">${product.price.toFixed(2)}</span>
             {hasDiscount && (
-              <span className="text-sm text-muted-foreground line-through">
-                ${product.originalPrice!.toFixed(2)}
-              </span>
+              <span className="text-sm text-muted-foreground line-through">${product.originalPrice!.toFixed(2)}</span>
             )}
           </div>
         </CardContent>
