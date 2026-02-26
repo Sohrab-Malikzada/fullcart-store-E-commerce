@@ -38,52 +38,46 @@ const ProductFilters = ({
   return (
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row gap-4">
-        {/* Search */}
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="Search products..."
+            placeholder="جستجوی محصولات..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="pl-10"
+            className="pr-10"
           />
         </div>
 
-        {/* Category Filter */}
         <Select value={categoryFilter} onValueChange={onCategoryChange}>
           <SelectTrigger className="w-full sm:w-[180px]">
-            <SelectValue placeholder="Category" />
+            <SelectValue placeholder="دسته‌بندی" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Categories</SelectItem>
+            <SelectItem value="all">همه دسته‌بندی‌ها</SelectItem>
             {categories.map((category) => (
-              <SelectItem key={category.id} value={category.slug}>
-                {category.name}
-              </SelectItem>
+              <SelectItem key={category.id} value={category.slug}>{category.name}</SelectItem>
             ))}
           </SelectContent>
         </Select>
 
-        {/* Sort */}
         <Select value={sortBy} onValueChange={onSortChange}>
           <SelectTrigger className="w-full sm:w-[180px]">
-            <SelectValue placeholder="Sort by" />
+            <SelectValue placeholder="مرتب‌سازی" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="featured">Featured</SelectItem>
-            <SelectItem value="price-low">Price: Low to High</SelectItem>
-            <SelectItem value="price-high">Price: High to Low</SelectItem>
-            <SelectItem value="rating">Highest Rated</SelectItem>
-            <SelectItem value="newest">Newest</SelectItem>
+            <SelectItem value="featured">ویژه</SelectItem>
+            <SelectItem value="price-low">قیمت: کم به زیاد</SelectItem>
+            <SelectItem value="price-high">قیمت: زیاد به کم</SelectItem>
+            <SelectItem value="rating">بالاترین امتیاز</SelectItem>
+            <SelectItem value="newest">جدیدترین</SelectItem>
           </SelectContent>
         </Select>
 
-        {/* Clear Filters */}
         {hasFilters && (
           <Button variant="outline" onClick={clearFilters} className="gap-2">
             <X className="h-4 w-4" />
-            Clear
+            پاک کردن
           </Button>
         )}
       </div>

@@ -27,8 +27,15 @@ const ProductDetail = () => {
   }
 
   if (!product) {
-    return <Layout><div className="container mx-auto px-4 py-16 text-center"><h1 className="text-2xl font-bold">Product not found</h1><Link to="/products"><Button className="mt-4">Back to Shop</Button></Link></div></Layout>;
+    return <Layout><div className="container mx-auto px-4 py-16 text-center"><h1 className="text-2xl font-bold">محصول یافت نشد</h1><Link to="/products"><Button className="mt-4">بازگشت به فروشگاه</Button></Link></div></Layout>;
   }
+
+  const categoryNames: Record<string, string> = {
+    electronics: "الکترونیک",
+    clothing: "پوشاک",
+    "home-living": "خانه و زندگی",
+    accessories: "لوازم جانبی",
+  };
 
   return (
     <Layout>
@@ -38,12 +45,12 @@ const ProductDetail = () => {
             <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
           </div>
           <div>
-            <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2">{product.category.replace("-", " ")}</p>
+            <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2">{categoryNames[product.category] || product.category}</p>
             <h1 className="font-serif text-3xl font-bold mb-4">{product.name}</h1>
             <div className="flex items-center gap-2 mb-4">
               <Star className="h-5 w-5 fill-primary text-primary" />
               <span className="font-medium">{product.rating}</span>
-              <span className="text-muted-foreground">({product.reviewCount} reviews)</span>
+              <span className="text-muted-foreground">({product.reviewCount} نظر)</span>
             </div>
             <div className="flex items-center gap-3 mb-6">
               <span className="text-3xl font-bold">${product.price.toFixed(2)}</span>
@@ -51,19 +58,19 @@ const ProductDetail = () => {
             </div>
             <p className="text-muted-foreground mb-6 leading-relaxed">{product.description}</p>
             <div className="mb-6">
-              {product.inStock ? <Badge variant="secondary" className="bg-success/10 text-success">In Stock ({product.stockCount})</Badge> : <Badge variant="destructive">Out of Stock</Badge>}
+              {product.inStock ? <Badge variant="secondary" className="bg-success/10 text-success">موجود ({product.stockCount})</Badge> : <Badge variant="destructive">ناموجود</Badge>}
             </div>
             <div className="flex gap-4 mb-8">
               <Button size="lg" className="flex-1 gap-2" disabled={!product.inStock || isInCart(product.id)} onClick={() => addItem(product)}>
-                <ShoppingBag className="h-5 w-5" />{isInCart(product.id) ? "In Cart" : "Add to Cart"}
+                <ShoppingBag className="h-5 w-5" />{isInCart(product.id) ? "در سبد خرید" : "افزودن به سبد"}
               </Button>
               <Button size="lg" variant="outline"><Heart className="h-5 w-5" /></Button>
             </div>
             <Separator className="my-6" />
             <div className="grid grid-cols-3 gap-4 text-center text-sm">
-              <div className="flex flex-col items-center gap-2"><Truck className="h-5 w-5 text-muted-foreground" /><span>Free Shipping</span></div>
-              <div className="flex flex-col items-center gap-2"><Shield className="h-5 w-5 text-muted-foreground" /><span>2 Year Warranty</span></div>
-              <div className="flex flex-col items-center gap-2"><RotateCcw className="h-5 w-5 text-muted-foreground" /><span>30 Day Returns</span></div>
+              <div className="flex flex-col items-center gap-2"><Truck className="h-5 w-5 text-muted-foreground" /><span>ارسال رایگان</span></div>
+              <div className="flex flex-col items-center gap-2"><Shield className="h-5 w-5 text-muted-foreground" /><span>گارانتی ۲ ساله</span></div>
+              <div className="flex flex-col items-center gap-2"><RotateCcw className="h-5 w-5 text-muted-foreground" /><span>بازگشت ۳۰ روزه</span></div>
             </div>
           </div>
         </div>

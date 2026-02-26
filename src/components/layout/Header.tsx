@@ -22,10 +22,10 @@ const Header = () => {
   };
 
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/products", label: "Shop" },
-    { href: "/products?category=electronics", label: "Electronics" },
-    { href: "/products?category=clothing", label: "Clothing" },
+    { href: "/", label: "خانه" },
+    { href: "/products", label: "فروشگاه" },
+    { href: "/products?category=electronics", label: "الکترونیک" },
+    { href: "/products?category=clothing", label: "پوشاک" },
   ];
 
   const isActive = (href: string) => {
@@ -48,22 +48,20 @@ const Header = () => {
           </Button>
 
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center gap-2">
             <span className="font-serif text-2xl font-bold text-foreground">
-              LUXE
+              لوکس
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
                 className={`text-sm font-medium transition-colors hover:text-primary ${
-                  isActive(link.href)
-                    ? "text-primary"
-                    : "text-muted-foreground"
+                  isActive(link.href) ? "text-primary" : "text-muted-foreground"
                 }`}
               >
                 {link.label}
@@ -72,34 +70,25 @@ const Header = () => {
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-2">
             {/* Search */}
             <div className="hidden md:flex items-center">
               {isSearchOpen ? (
                 <form onSubmit={handleSearch} className="flex items-center animate-fade-in">
                   <Input
                     type="search"
-                    placeholder="Search products..."
+                    placeholder="جستجوی محصولات..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-48 h-9"
                     autoFocus
                   />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setIsSearchOpen(false)}
-                  >
+                  <Button type="button" variant="ghost" size="icon" onClick={() => setIsSearchOpen(false)}>
                     <X className="h-4 w-4" />
                   </Button>
                 </form>
               ) : (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setIsSearchOpen(true)}
-                >
+                <Button variant="ghost" size="icon" onClick={() => setIsSearchOpen(true)}>
                   <Search className="h-5 w-5" />
                 </Button>
               )}
@@ -116,10 +105,10 @@ const Header = () => {
                 <ShoppingBag className="h-5 w-5" />
                 {itemCount > 0 && (
                   <Badge
-                    className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
+                    className="absolute -top-1 -left-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
                     variant="default"
                   >
-                    {itemCount > 99 ? "99+" : itemCount}
+                    {itemCount > 99 ? "۹۹+" : itemCount}
                   </Badge>
                 )}
               </Button>
@@ -133,22 +122,20 @@ const Header = () => {
             <form onSubmit={handleSearch} className="mb-4">
               <Input
                 type="search"
-                placeholder="Search products..."
+                placeholder="جستجوی محصولات..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full"
               />
             </form>
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col gap-2">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   to={link.href}
                   onClick={() => setIsMenuOpen(false)}
                   className={`py-2 text-sm font-medium transition-colors hover:text-primary ${
-                    isActive(link.href)
-                      ? "text-primary"
-                      : "text-muted-foreground"
+                    isActive(link.href) ? "text-primary" : "text-muted-foreground"
                   }`}
                 >
                   {link.label}
